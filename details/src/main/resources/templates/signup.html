@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <!-- A simple sign-up form -->
+    <form id="signupForm">
+        <div>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+        <br>
+        <div>
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+        <br>
+        <div>
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" name="mobileNumber" required />
+        </div>
+        <br>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <br>
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <script>
+        // Listen for the form submission
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission (page reload)
+
+            // Retrieve input values
+            const userName     = document.getElementById('username').value;
+            const emailId      = document.getElementById('email').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const password     = document.getElementById('password').value;
+
+            // Send the data as JSON to the server
+            fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    emailId: emailId,
+                    mobileNumber: mobileNumber,
+                    password: password
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    // Handle non-2xx HTTP responses
+                    throw new Error('Server response: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle success (data is the JSON returned by your Spring Boot controller)
+                alert('Registration successful!\n\nUser ID: ' + data.id);
+            })
+            .catch(error => {
+                // Handle errors (network errors, server errors, etc.)
+                console.error('Error:', error);
+                alert('Error occurred while registering user.');
+            });
+        });
+    </script>
+</body>
+</html>
