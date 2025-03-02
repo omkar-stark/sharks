@@ -1,75 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <!-- A simple sign-up form -->
+    <h2>Signup Form</h2>
     <form id="signupForm">
-        <div>
-            <label for="username">User Name:</label>
-            <input type="text" id="username" name="username" required />
-        </div>
-        <br>
-        <div>
-            <label for="email">Email ID:</label>
-            <input type="email" id="email" name="email" required />
-        </div>
-        <br>
-        <div>
-            <label for="mobileNumber">Mobile Number:</label>
-            <input type="text" id="mobileNumber" name="mobileNumber" required />
-        </div>
-        <br>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-        </div>
-        <br>
+        <label for="name">Name:</label>
+        <input type="text" id="userName" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="emailId" required><br>
+
+        <label for="mobilenumber">Mobile Number:</label>
+        <input type="mobilenumber" id="mobileNumber" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br>
         <button type="submit">Sign Up</button>
     </form>
 
     <script>
-        // Listen for the form submission
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission (page reload)
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-            // Retrieve input values
-            const userName     = document.getElementById('username').value;
-            const emailId      = document.getElementById('email').value;
-            const mobileNumber = document.getElementById('mobileNumber').value;
-            const password     = document.getElementById('password').value;
+            const user = {
+                userName: document.getElementById("userName").value,
+                emailId: document.getElementById("emailId").value,
+                mobileNumber: document.getElementById("mobileNumber").value,
+                password: document.getElementById("password").value
+         }
 
-            // Send the data as JSON to the server
-            fetch('/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userName: userName,
-                    emailId: emailId,
-                    mobileNumber: mobileNumber,
-                    password: password
-                })
+            fetch("http://localhost:8080/api/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(user)//`userName=${name}&emailId=${email}&password=${password}&mobileNumber=${mobilenumber}`
             })
             .then(response => {
                 if (!response.ok) {
-                    // Handle non-2xx HTTP responses
-                    throw new Error('Server response: ' + response.status);
+                    throw new Error("Network response was not ok");
                 }
-                return response.json();
-            })
-            .then(data => {
-                // Handle success (data is the JSON returned by your Spring Boot controller)
-                alert('Registration successful!\n\nUser ID: ' + data.id);
+                // If the response is 2xx, we assume success
+                return response; 
+                })
+            .then(() => {
+                alert("Signup successful!");
+                window.location.href = "index.html";
             })
             .catch(error => {
-                // Handle errors (network errors, server errors, etc.)
-                console.error('Error:', error);
-                alert('Error occurred while registering user.');
+                console.error("Error:", error);
+                alert("Signup failed: " + error.message);
             });
         });
     </script>

@@ -6,12 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
-@Getter
-@Setter
 @Table(name = "sign_up") // You can change the table name as needed
 public class signUp {
 
@@ -44,43 +41,43 @@ public class signUp {
     }
 
     // --- Getters and Setters ---
-    // public Long getId() {
-    //     return id;
-    // }
+    public Long getId() {
+        return id;
+    }
 
-    // public void setId(Long id) {
-    //     this.id = id;
-    // }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    // public String getUserName() {
-    //     return userName;
-    // }
+    public String getUserName() {
+        return userName;
+    }
 
-    // public void setUserName(String userName) {
-    //     this.userName = userName;
-    // }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-    // public String getEmailId() {
-    //     return emailId;
-    // }
+    public String getEmailId() {
+        return emailId;
+    }
 
-    // public void setEmailId(String emailId) {
-    //     this.emailId = emailId;
-    // }
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 
-    // public String getMobileNumber() {
-    //     return mobileNumber;
-    // }
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
 
-    // public void setMobileNumber(String mobileNumber) {
-    //     this.mobileNumber = mobileNumber;
-    // }
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
-    // public String getPassword() {
-    //     return password;
-    // }
+    public String getPassword() {
+        return password;
+    }
 
-    // public void setPassword(String password) {
-    //     this.password = password;
-    // }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
